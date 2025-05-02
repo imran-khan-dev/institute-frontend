@@ -192,7 +192,7 @@ function HomePage() {
       {/* Headlines Ticker */}
       <div className="overflow-hidden bg-gray-100 py-2 mb-16">
         <div className="flex w-max animate-marquee whitespace-nowrap items-center">
-          <span className="text-xl font-bold mr-8 text-red-600">UPDATE:</span>
+          <span className="text-xl font-bold mr-8 text-red-600">আপডেট:</span>
           {headlines.map((headline, index) => (
             <marquee
               key={index}

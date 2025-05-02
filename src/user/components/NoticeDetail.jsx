@@ -1,5 +1,5 @@
-import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 
 const NoticeDetail = () => {
   const { id } = useParams();
@@ -31,7 +31,7 @@ const NoticeDetail = () => {
         to="/"
         className="bg-blue-600 text-white font-semibold px-5 py-3 rounded hover:bg-red-600 hover:scale-105 transition w-max"
       >
-        Home
+        হোম
       </Link>
       <h1 className="text-3xl font-bold text-gray-800 mt-10">{notice.title}</h1>
       <p className="text-gray-700 text-lg">{notice.description}</p>

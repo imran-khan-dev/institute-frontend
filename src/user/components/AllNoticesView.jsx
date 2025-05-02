@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
@@ -61,7 +61,7 @@ export default function AllNoticesView() {
                 to={`/notice/${notice._id}`}
                 className="bg-blue-600 text-white font-semibold px-5 py-3 rounded hover:bg-red-600 hover:scale-105 transition w-max"
               >
-                View Detail
+                বিস্তারিত দেখুন
               </Link>
             </div>
           </div>
