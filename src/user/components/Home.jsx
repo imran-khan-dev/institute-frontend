@@ -318,7 +318,7 @@ function HomePage() {
                   className="text-blue-600 hover:underline mt-2 inline-block"
                   target="_blank"
                 >
-                  বিস্তারিত
+                  Details
                 </Link>
               </div>
             ))}

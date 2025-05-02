@@ -1,24 +1,48 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+.out/
+.next/
+
+# Vite cache
+.vite/
+
+# System files
+.DS_Store
+Thumbs.db
+
 # Logs
-logs
-*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
-lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
+# IDE/editor files
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
 
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-.DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+# Environment variables
+.env
+.env.*  # for .env.local, .env.production, etc.
+
+# Testing
+coverage/
+*.lcov
+
+# Optional: Mac/Linux backup files
+*.swp
+*.bak
+*~
+
+# Optional: lock files (if using only one type of lock)
+# yarn.lock
+# package-lock.json
+# pnpm-lock.yaml
+
+# Optional: Storybook
+.storybook-out/
