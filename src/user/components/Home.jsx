@@ -318,7 +318,7 @@ function HomePage() {
                   className="text-blue-600 hover:underline mt-2 inline-block"
                   target="_blank"
                 >
-                  Details
+                  বিস্তারিত
                 </Link>
               </div>
             ))}
@@ -326,7 +326,7 @@ function HomePage() {
               to="/all-notices-view"
               className="bg-blue-600 px-4 py-3 text-white font-bold cursor-pointer"
             >
-              View All Notices
+              সব নোটিশ দেখুন
             </Link>
           </div>
 
