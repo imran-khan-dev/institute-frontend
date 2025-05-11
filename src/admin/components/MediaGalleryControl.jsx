@@ -153,12 +153,9 @@ export default function MediaGalleryControl() {
 
   const handleImageDelete = async (id) => {
     try {
-      const response = await fetch(
-        `${API_BASE_URL}/api/delete-image/${id}`,
-        {
-          method: "DELETE",
-        }
-      );
+      const response = await fetch(`${API_BASE_URL}/api/delete-image/${id}`, {
+        method: "DELETE",
+      });
       if (response.ok) {
         setOverlayAlert(true);
         setAlertText("Image deleted succesfully");
@@ -199,16 +196,13 @@ export default function MediaGalleryControl() {
     }
 
     try {
-      const response = await fetch(
-        `${API_BASE_URL}/api/delete-mark-images`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ ids: deleteIDs.flat() }),
-        }
-      );
+      const response = await fetch(`${API_BASE_URL}/api/delete-mark-images`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ ids: deleteIDs.flat() }),
+      });
 
       if (response.ok) {
         setDeleteMarkCard(false);
@@ -232,7 +226,7 @@ export default function MediaGalleryControl() {
     <div className="p-6 mx-auto space-y-8">
       {/* Image Add to Gallery and Update */}
       <div className="flex items-center justify-center space-x-10 mb-20">
-        <div className="grid grid-cols-2 gap-6 ">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-20 ">
           {/* Add a New Image */}
           <div className="bg-white p-6 rounded-lg shadow-lg">
             <h2 className="text-2xl font-semibold text-gray-700 mb-3">
@@ -249,7 +243,6 @@ export default function MediaGalleryControl() {
                   ref={addImageInputRef}
                   className="text-center"
                 />
-                <span className="text-gray-500">Click to select an image</span>
               </label>
 
               <button
@@ -299,7 +292,7 @@ export default function MediaGalleryControl() {
       </div>
 
       {/* Photo gallery */}
-      <div className="grid grid-cols-8 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
         {images.map((image) => (
           <div
             key={image._id}
@@ -395,21 +388,21 @@ export default function MediaGalleryControl() {
       </div>
 
       {/* Pagination */}
-      <div className="pagination">
+      <div className="flex items-center justify-center gap-4 mt-10 text-center">
         <button
           onClick={handlePrevPage}
           disabled={page === 1}
-          className="bg-blue-500 text-white rounded-lg mr-5 hover:bg-blue-600 px-5 py-3 disabled:bg-gray-400 transition hover:scale-105 cursor-pointer"
+          className="bg-blue-500 text-white rounded-lg px-5 py-3 disabled:bg-gray-400 transition hover:scale-105 cursor-pointer"
         >
           Previous
         </button>
-        <span>
+        <span className="text-lg font-semibold text-gray-700">
           Page {page} of {totalPages}
         </span>
         <button
           onClick={handleNextPage}
           disabled={page === totalPages}
-          className="bg-blue-500 text-white rounded-lg ml-5 hover:bg-blue-600 px-5 py-3 disabled:bg-gray-400 transition hover:scale-105 cursor-pointer"
+          className="bg-blue-500 text-white rounded-lg px-5 py-3 disabled:bg-gray-400 transition hover:scale-105 cursor-pointer"
         >
           Next
         </button>
@@ -417,21 +410,25 @@ export default function MediaGalleryControl() {
 
       {/* Mark Delete Floating */}
       {deleteMarkCard && (
-        <div className="fixed top-1/2 right-0 -translate-y-1/2 bg-white shadow-lg rounded-lg p-5 w-64 border border-gray-300">
-          <h3 className="text-lg font-semibold text-gray-800">Delete Items?</h3>
-          <div className="flex justify-between mt-4">
-            <button
-              onClick={() => setDeleteMarkCard(false)}
-              className="bg-gray-300 text-gray-800 font-semibold px-6 py-2 cursor-pointer rounded-md hover:bg-gray-400"
-            >
-              No
-            </button>
-            <button
-              onClick={() => handleMarkDelete()}
-              className="bg-red-500 text-white font-semibold px-6 py-2 cursor-pointer rounded-md hover:bg-red-600"
-            >
-              {markDeleting ? "Deleting" : "Yes"}
-            </button>
+        <div className="fixed top-1/2 right-0 -translate-y-1/2 z-50">
+          <div className="bg-white px-6 py-4 sm:px-8 sm:py-6 rounded-md shadow-lg max-w-[90vw] w-64 border border-gray-300">
+            <h3 className="text-lg font-semibold text-gray-800">
+              Delete Items?
+            </h3>
+            <div className="flex justify-between mt-4">
+              <button
+                onClick={() => setDeleteMarkCard(false)}
+                className="bg-gray-300 text-gray-800 font-semibold px-6 py-2 cursor-pointer rounded-md hover:bg-gray-400"
+              >
+                No
+              </button>
+              <button
+                onClick={() => handleMarkDelete()}
+                className="bg-red-500 text-white font-semibold px-6 py-2 cursor-pointer rounded-md hover:bg-red-600"
+              >
+                {markDeleting ? "Deleting" : "Yes"}
+              </button>
+            </div>
           </div>
         </div>
       )}
@@ -439,11 +436,10 @@ export default function MediaGalleryControl() {
       {/* Overlay Alert */}
       {overlayAlert && (
         <div
-          className="fixed inset-0 flex justify-center items-center"
-          style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
+          className="fixed inset-0 flex justify-center items-center bg-black/50 z-50"
           onClick={() => setOverlayAlert(false)}
         >
-          <div className="flex items-center justify-between bg-white px-6 py-3 rounded-md shadow-lg">
+          <div className="bg-white px-6 py-4 sm:px-8 sm:py-6 rounded-md shadow-lg max-w-[90vw] flex items-center gap-4 cursor-default">
             <p className="text-black font-semibold text-xl text-center">
               {alertText}
             </p>
@@ -462,10 +458,10 @@ export default function MediaGalleryControl() {
           className="fixed inset-0 bg-black/80 flex items-center justify-center z-50"
           onClick={() => setClickedImageView(false)}
         >
-          <div className="relative">
+          <div className="relative bg-white px-6 py-4 sm:px-8 sm:py-6 rounded-md shadow-lg max-w-[95vw]">
             {/* Close Button */}
             <button
-              className="absolute top-0 -right-2 bg-red-600 text-white px-3 py-1 rounded-[4px] text-xl cursor-pointer"
+              className="absolute top-2 right-2 bg-red-600 text-white px-3 py-1 rounded text-xl cursor-pointer"
               onClick={() => setClickedImageView(false)}
             >
               ✕
@@ -474,7 +470,7 @@ export default function MediaGalleryControl() {
             <img
               src={clickedImageView}
               alt="Selected"
-              className="max-w-full max-h-[90vh] rounded-lg shadow-lg"
+              className="max-w-full max-h-[80vh] rounded-lg"
             />
           </div>
         </div>

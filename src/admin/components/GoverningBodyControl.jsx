@@ -293,7 +293,7 @@ function GoverningBodyControl() {
         {members.map((member) => (
           <div
             key={member._id}
-            className={`p-3 rounded-lg shadow-lg transition-all cursor-pointer ${
+            className={`p-3 rounded-lg shadow-lg flex flex-col items-center justify-center transition-all cursor-pointer ${
               selectedMember?._id === member._id
                 ? "border-2 border-blue-500"
                 : "border border-gray-300"
@@ -344,10 +344,9 @@ function GoverningBodyControl() {
         </ul>
       </div>
 
-      {/* Add and Update Member */}
-      <div className="flex items-center justify-between mb-7">
+      <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-10 mb-7 px-4">
         {/* Add New Member Section */}
-        <div className="mt-10 p-6 bg-white rounded-lg shadow-md">
+        <div className="w-full md:w-1/2 mt-10 p-6 bg-white rounded-lg shadow-md">
           <h2 className="text-xl font-semibold text-center mb-5">
             Add New Member
           </h2>
@@ -365,24 +364,19 @@ function GoverningBodyControl() {
               onChange={(e) => setDescription(e.target.value)}
               className="w-full p-3 border border-gray-300 rounded-lg bg-gray-50"
             />
-
             <label className="flex flex-col items-center justify-center w-full p-5 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-blue-400">
               <input
                 type="file"
                 ref={addFileInputRef}
                 accept="image/*"
                 onChange={handleAddImage}
-                className="text-center"
+                className="text-center text-xs md:text-base"
                 required
               />
-              <span className="text-gray-500 text-center">
-                Click to select an image
-              </span>
             </label>
-
             <button
               type="submit"
-              className="cursor-pointer w-auto px-5 py-2 bg-blue-500 hover:bg-blue-600 rounded-md text-white font-medium hover:scale-105"
+              className="cursor-pointer px-5 py-2 bg-blue-500 hover:bg-blue-600 rounded-md text-white font-medium hover:scale-105"
             >
               Add Member
             </button>
@@ -391,7 +385,7 @@ function GoverningBodyControl() {
 
         {/* Update Member Section */}
         {selectedMember && (
-          <div className="mt-10 p-6 bg-white rounded-lg shadow-md">
+          <div className="w-full md:w-1/2 mt-10 p-6 bg-white rounded-lg shadow-md">
             <h3 className="text-xl font-semibold text-center mb-5">
               Update Member
             </h3>
@@ -415,11 +409,10 @@ function GoverningBodyControl() {
                   ref={updateFileInputRef}
                   accept="image/*"
                   onChange={handleImageChange}
-                  className="text-center"
+                  className="text-center text-xs md:text-base"
                 />
-                <span className="text-gray-500">Click to select an image</span>
               </label>
-              <div className="flex items-center justify-end">
+              <div className="flex items-center justify-start">
                 <button
                   type="submit"
                   className="cursor-pointer w-auto px-5 py-2 bg-green-500 hover:bg-green-600 rounded-md text-white font-medium hover:scale-105"
@@ -429,13 +422,16 @@ function GoverningBodyControl() {
               </div>
             </form>
 
+            {/* Delete Confirmation Modal */}
             {deleteCard && (
               <div
-                className="fixed inset-0 flex justify-center items-center"
-                style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
+                className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50"
                 onClick={() => setDeleteCard(false)}
               >
-                <div className="bg-white px-6 py-5 rounded-md shadow-lg">
+                <div
+                  className="bg-white px-6 py-5 rounded-md shadow-lg"
+                  onClick={(e) => e.stopPropagation()}
+                >
                   <p className="text-black text-center">Are you sure?</p>
                   <div className="flex justify-center gap-4 mt-4">
                     <button

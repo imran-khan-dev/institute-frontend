@@ -179,35 +179,32 @@ export default function LinkManager() {
         Total Active Links: {links.length}
       </p>
       {/* Link List */}
-      <div className="grid grid-cols-1 sm:grid-cols-1 gap-4">
+      <div className="grid grid-cols-1 gap-6">
         {links
           .slice()
           .reverse()
           .map((link) => (
             <div
               key={link._id}
-              className="p-8 border rounded-lg flex items-center justify-between transition relative"
+              className="p-4 sm:p-6 lg:p-8 border rounded-lg flex flex-col sm:flex-row sm:items-center justify-between gap-4 transition relative"
             >
-              {/* Links */}
-              <div className="flex items-center">
-                {/* Link details */}
-                <div>
-                  <h2 className="text-3xl font-semibold text-left justify-start text-gray-700 mb-3">
-                    {link.title}
-                  </h2>
-                  <div className="flex items-center">
-                    <div className="px-2 py-2 bg-blue-500 text-white font-semibold rounded-[4px] mr-3">
-                      Click Link to Visit:
-                    </div>
-                    <a
-                      href={link.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-gray-700 text-xl cursor-pointer"
-                    >
-                      {link.url}
-                    </a>
+              {/* Link Details */}
+              <div className="flex-1">
+                <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold text-gray-700 mb-3">
+                  {link.title}
+                </h2>
+                <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+                  <div className="w-[160px] md:w-auto px-2 py-1 sm:py-2 bg-blue-500 text-white font-semibold rounded-[4px]">
+                    Click Link to Visit:
                   </div>
+                  <a
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-gray-700 text-base sm:text-lg break-all"
+                  >
+                    {link.url}
+                  </a>
                 </div>
               </div>
 
@@ -218,32 +215,33 @@ export default function LinkManager() {
                   setDeleteID(link._id);
                   setDeleteLink(true);
                 }}
-                className="bg-red-500 text-white font-semibold px-5 py-3 rounded-[8px] hover:bg-red-600 hover:scale-105 cursor-pointer ml-2.5"
+                className="bg-red-500 text-white font-semibold px-4 py-1 md:py-3 rounded-[4px] hover:bg-red-600 hover:scale-105 cursor-pointer self-start sm:self-center"
               >
                 Delete
               </button>
             </div>
           ))}
+
+        {/* Delete Modal */}
         {deleteLink && (
           <div
-            className="fixed inset-0 flex justify-center items-center"
-            style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
+            className="fixed inset-0 flex justify-center items-center z-50 bg-black/50"
             onClick={() => setDeleteLink(false)}
           >
-            <div className="bg-white px-8 py-6 rounded-md shadow-lg">
+            <div className="bg-white px-6 py-4 sm:px-8 sm:py-6 rounded-md shadow-lg max-w-[90vw]">
               <p className="text-black font-semibold text-xl text-center">
                 Are you sure?
               </p>
               <div className="flex justify-center gap-4 mt-4">
                 <button
                   onClick={() => setDeleteLink(false)}
-                  className="bg-gray-300 text-black font-semibold px-4 py-1 rounded cursor-pointer hover:scale-105"
+                  className="bg-gray-300 text-black font-semibold px-4 py-2 rounded hover:scale-105"
                 >
                   No
                 </button>
                 <button
                   onClick={() => handleDelete(deleteID)}
-                  className="bg-red-500 text-white font-semibold px-4 py-1 rounded cursor-pointer hover:scale-105"
+                  className="bg-red-500 text-white font-semibold px-4 py-2 rounded hover:scale-105"
                 >
                   Yes, Delete
                 </button>

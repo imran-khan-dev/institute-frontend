@@ -20,7 +20,6 @@ export default function UpdateHeadlineControl() {
       .then((res) => res.json())
       .then((data) => {
         setHeadlines(data);
-        console.log(data);
       })
       .catch((err) => console.error("Error fetching headlines:", err));
   };
@@ -33,6 +32,7 @@ export default function UpdateHeadlineControl() {
 
       if (response.ok) {
         fetchHeadlines();
+        setDeleteHeadline(false);
       }
     } catch (error) {
       console.error("Error deleting headline:", error);
@@ -44,7 +44,7 @@ export default function UpdateHeadlineControl() {
 
     if (headline.length > 80) {
       setOverlayAlert(true);
-      setAlertText("Headline length shouldn't excced 80 characters limit");
+      setAlertText("Headline length shouldn't exceed 80 characters limit");
       setOPSuccess(false);
       return;
     }
@@ -64,27 +64,26 @@ export default function UpdateHeadlineControl() {
       if (response.ok) {
         fetchHeadlines();
         setOverlayAlert(true);
-        setAlertText("Update Headline added succesfully");
+        setAlertText("Update Headline added successfully");
         setOPSuccess(true);
       }
     } catch (error) {
+      console.log(error);
       setOverlayAlert(true);
       setAlertText("Error adding Update Headline");
       setOPSuccess(false);
-      console.log(error);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="p-6 mx-auto space-y-8">
+    <div className="p-4 sm:p-6 mx-auto space-y-8 max-w-4xl">
       {/* Headline Add */}
-      <div className="flex items-center justify-center space-x-10 mb-20">
-        {/* Add New Update Headline */}
-        <div className="grid grid-cols-1 gap-6 ">
-          <div className="bg-white p-6 rounded-lg shadow-lg">
-            <h2 className="text-2xl font-semibold text-gray-700 mb-3">
+      <div className="flex flex-col items-center justify-center space-y-6 mb-10">
+        <div className="w-full">
+          <div className="bg-white p-4 sm:p-6 rounded-lg shadow-lg">
+            <h2 className="text-xl sm:text-2xl font-semibold text-gray-700 mb-3">
               Add a Headline
             </h2>
             <form onSubmit={handleAddUpdateHeadline} className="space-y-4">
@@ -93,13 +92,13 @@ export default function UpdateHeadlineControl() {
                 placeholder="Enter Headline"
                 value={headline}
                 onChange={(e) => setHeadline(e.target.value)}
-                className="w-full p-3 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-blue-300"
+                className="w-full p-3 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-blue-300 text-sm"
               />
 
               <button
                 type="submit"
                 disabled={loading}
-                className="bg-blue-500 text-white rounded-lg hover:bg-blue-600 px-5 py-3 disabled:bg-gray-400 transition hover:scale-105 cursor-pointer"
+                className="bg-blue-500 text-white rounded-lg hover:bg-blue-600 px-5 py-3 disabled:bg-gray-400 transition hover:scale-105"
               >
                 {loading ? "Adding..." : "Add Headline"}
               </button>
@@ -109,35 +108,27 @@ export default function UpdateHeadlineControl() {
       </div>
 
       {/* Instructions */}
-      <div className="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-900 p-4 rounded-lg shadow-md mb-4">
+      <div className="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-900 p-4 rounded-lg shadow-md">
         <h2 className="text-lg font-bold mb-2">Instructions:</h2>
-        <ul className="list-disc list-inside space-y-1">
+        <ul className="list-disc list-inside space-y-1 text-sm sm:text-base">
           <li>Headline length should not exceed 80 characters.</li>
           <li>Adding a new headline will delete the previous one.</li>
         </ul>
       </div>
 
       {/* Headline View */}
-      <div className="grid grid-cols-1 sm:grid-cols-1 gap-4 cursor-pointer">
+      <div className="grid grid-cols-1 gap-4">
         {headlines.map((headline) => (
           <div
             key={headline._id}
-            className="p-8 border rounded-lg flex items-center justify-between transition relative cursor-pointer"
+            className="p-6 border rounded-lg flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-white shadow"
           >
-            {/* Notice Text */}
-            <div className="ml-4">
-              <h2 className="text-3xl font-semibold text-left justify-start text-gray-700 mb-3 cursor-pointer">
-                {headline.headline}
-              </h2>
-            </div>
-
-            {/* Delete Button */}
+            <h2 className="text-lg sm:text-xl font-semibold text-gray-700">
+              {headline.headline}
+            </h2>
             <button
-              onClick={() => {
-                // e.stopPropagation();
-                setDeleteHeadline(true);
-              }}
-              className="bg-red-500 text-white font-semibold px-5 py-3 rounded-[8px] hover:bg-red-600 hover:scale-105 cursor-pointer"
+              onClick={() => setDeleteHeadline(true)}
+              className="bg-red-500 text-white font-semibold px-4 py-2 rounded hover:bg-red-600 hover:scale-105"
             >
               Delete
             </button>
@@ -145,27 +136,30 @@ export default function UpdateHeadlineControl() {
         ))}
       </div>
 
-      {/* Delete Confrim Card */}
+      {/* Delete Confirm Modal */}
       {deleteHeadline && (
         <div
-          className="fixed inset-0 flex justify-center items-center"
+          className="fixed inset-0 flex justify-center items-center z-50 px-4"
           style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
           onClick={() => setDeleteHeadline(false)}
         >
-          <div className="bg-white px-8 py-6 rounded-md shadow-lg">
-            <p className="text-black font-semibold text-xl text-center">
-              Are you sure?
+          <div
+            className="bg-white w-full max-w-md mx-auto p-6 rounded-md shadow-lg space-y-4"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <p className="text-black font-semibold text-center text-lg">
+              Are you sure you want to delete?
             </p>
-            <div className="flex justify-center gap-4 mt-4">
+            <div className="flex justify-center gap-4">
               <button
                 onClick={() => setDeleteHeadline(false)}
-                className="bg-gray-300 text-black font-semibold px-4 py-1 rounded cursor-pointer hover:scale-105"
+                className="bg-gray-300 text-black px-4 py-2 rounded hover:scale-105"
               >
                 No
               </button>
               <button
-                onClick={() => handleDelete()}
-                className="bg-red-500 text-white font-semibold px-4 py-1 rounded cursor-pointer hover:scale-105"
+                onClick={handleDelete}
+                className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 hover:scale-105"
               >
                 Yes, Delete
               </button>
@@ -174,22 +168,23 @@ export default function UpdateHeadlineControl() {
         </div>
       )}
 
-      {/* Overlay Alert */}
+      {/* Alert Modal */}
       {overlayAlert && (
         <div
-          className="fixed inset-0 flex justify-center items-center"
+          className="fixed inset-0 flex justify-center items-center z-50 px-4"
           style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
           onClick={() => setOverlayAlert(false)}
         >
-          <div className="flex items-center justify-between bg-white px-6 py-3 rounded-md shadow-lg">
-            <p className="text-black font-semibold text-xl text-center">
-              {alertText}
-            </p>
-            {opSuccess ? (
-              <img className="w-[150px]" src="/success-new.gif" alt="success" />
-            ) : (
-              <img className="w-[150px]" src="/fail.gif" alt="fail" />
-            )}
+          <div
+            className="bg-white w-full max-w-md mx-auto p-6 rounded-md shadow-lg space-y-4 text-center"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <p className="text-black font-semibold text-lg">{alertText}</p>
+            <img
+              className="mx-auto w-28 sm:w-36"
+              src={opSuccess ? "/success-new.gif" : "/fail.gif"}
+              alt={opSuccess ? "Success" : "Failed"}
+            />
           </div>
         </div>
       )}

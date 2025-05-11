@@ -1,54 +1,64 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import PropTypes from "prop-types";
 
-const NoticeDetail = () => {
+const NoticeDetail = ({ apiBaseUrl }) => {
   const { id } = useParams();
   const [notice, setNotice] = useState(null);
-  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchNotice = async () => {
-      const res = await fetch(`${API_BASE_URL}/api/notice/${id}`);
-      const data = await res.json();
-      console.log(data);
-      setNotice(data);
+      try {
+        const res = await fetch(`${apiBaseUrl}/api/notice/${id}`);
+        const data = await res.json();
+        setNotice(data);
+      } catch (error) {
+        console.error("Failed to fetch notice:", error);
+      } finally {
+        setIsLoading(false);
+      }
     };
 
     fetchNotice();
   }, [id]);
 
-  useEffect(() => {
-    if (notice?.title) {
-      document.title = `${notice.title} | এক্স ওয়াই জেড বিদ্যালয়`;
-    }
-  }, [notice]);
-
-  if (!notice) return <p className="p-6">Loading...</p>;
-
   return (
-    <div className="p-6 max-w-3xl mx-auto space-y-4 bg-white shadow rounded-lg mt-10">
-      <Link
-        to="/"
-        className="bg-blue-600 text-white font-semibold px-5 py-3 rounded hover:bg-red-600 hover:scale-105 transition w-max"
-      >
-        হোম
-      </Link>
-      <h1 className="text-3xl font-bold text-gray-800 mt-10">{notice.title}</h1>
-      <p className="text-gray-700 text-lg">{notice.description}</p>
-      {notice.fileUrl?.endsWith(".pdf") ? (
-        <iframe
-          src={notice.fileUrl}
-          className="w-full h-[600px] border mt-4"
-        ></iframe>
+    <div className="flex-1 space-y-10">
+      {isLoading ? (
+        <div className="mt-10 space-y-6 animate-pulse">
+          <div className="h-8 bg-gray-300 rounded w-2/3" />
+          <div className="h-4 bg-gray-300 rounded w-full" />
+          <div className="h-4 bg-gray-300 rounded w-5/6" />
+          <div className="h-[400px] bg-gray-200 rounded mt-6" />
+        </div>
       ) : (
-        <img
-          src={notice.fileUrl}
-          alt="Notice File"
-          className="w-full mt-4 rounded"
-        />
+        <>
+          <h1 className="text-3xl font-bold text-gray-800 mt-10">
+            {notice.title}
+          </h1>
+          <p className="text-gray-700 text-lg">{notice.description}</p>
+          {notice.fileUrl?.endsWith(".pdf") ? (
+            <iframe
+              src={notice.fileUrl}
+              className="w-full h-[600px] border mt-4"
+              title="Notice PDF"
+            ></iframe>
+          ) : (
+            <img
+              src={notice.fileUrl}
+              alt="Notice File"
+              className="w-full mt-4 rounded"
+            />
+          )}
+        </>
       )}
     </div>
   );
+};
+
+NoticeDetail.propTypes = {
+  apiBaseUrl: PropTypes.string.isRequired,
 };
 
 export default NoticeDetail;

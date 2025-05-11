@@ -4,6 +4,13 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;700&display=swap");
+
+body {
+  font-family: "Noto Sans Bengali", sans-serif;
+  background: #F8F8F8;
+}
+
 :root {
   --background: hsl(0 0% 100%);
   --foreground: hsl(240 10% 3.9%);
@@ -89,8 +96,6 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
 }
-
-
 
 @layer base {
   * {

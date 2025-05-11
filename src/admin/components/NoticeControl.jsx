@@ -303,10 +303,9 @@ export default function NoticeControl() {
   return (
     <div className="p-6 mx-auto space-y-8">
       {/* Notice Add and Update */}
-      <div className="flex items-center justify-center space-x-10 mb-20">
+      <div className="flex flex-col md:flex-row items-center justify-center md:space-x-10 space-y-10 md:space-y-0 mb-20 px-4">
         {/* Add New Notice */}
-        <div className="grid grid-cols-1 gap-6 ">
-          {/* Add a New Notice */}
+        <div className="w-full md:w-1/2">
           <div className="bg-white p-6 rounded-lg shadow-lg">
             <h2 className="text-2xl font-semibold text-gray-700 mb-3">
               Add a New Notice
@@ -321,25 +320,20 @@ export default function NoticeControl() {
               />
 
               <textarea
-                type="text"
                 placeholder="Enter description"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 className="w-full p-3 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-blue-300"
               />
 
-              {/* Drag & Drop File Upload */}
               <label className="flex flex-col items-center justify-center p-5 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-blue-400">
                 <input
                   type="file"
                   accept="image/*,application/pdf"
                   onChange={handleNoticeFile}
                   ref={addFileInputRef}
-                  className="text-center"
+                  className="text-center text-xs md:text-base"
                 />
-                <span className="text-gray-500">
-                  Click to select an image/PDF
-                </span>
               </label>
 
               <button
@@ -354,8 +348,7 @@ export default function NoticeControl() {
         </div>
 
         {/* Update Notice */}
-        <div className="grid grid-cols-1 gap-6 ">
-          {/* Add a New Notice */}
+        <div className="w-full md:w-1/2">
           <div className="bg-white p-6 rounded-lg shadow-lg">
             <h2 className="text-2xl font-semibold text-gray-700 mb-3">
               Update Notice (Please select a notice first)
@@ -370,25 +363,20 @@ export default function NoticeControl() {
               />
 
               <textarea
-                type="text"
                 placeholder="Enter description"
                 value={newDescription}
                 onChange={(e) => setNewDescription(e.target.value)}
                 className="w-full p-3 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-blue-300"
               />
 
-              {/* Drag & Drop File Upload */}
               <label className="flex flex-col items-center justify-center p-5 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-blue-400">
                 <input
                   type="file"
                   accept="image/*,application/pdf"
                   onChange={handleNoticeFile}
                   ref={updateFileInputRef}
-                  className="text-center"
+                  className="text-center text-xs md:text-base"
                 />
-                <span className="text-gray-500">
-                  Click to select an image/PDF
-                </span>
               </label>
 
               <button
@@ -434,75 +422,79 @@ export default function NoticeControl() {
                 selectedNotice?._id === notice._id ? null : notice
               )
             }
-            className={`p-8 border rounded-lg flex items-center justify-between transition relative cursor-pointer ${
+            className={`p-8 border rounded-lg flex flex-col md:flex-row items-center justify-between transition relative cursor-pointer ${
               selectedNotice?._id === notice._id
                 ? "border-blue-500 shadow-md"
                 : "border-gray-300 hover:shadow"
             }`}
           >
             {/* Notices */}
-            <div className="flex items-center justify-center cursor-pointer">
-              {/* Mark Items */}
-              <label className="relative flex items-center cursor-pointer mr-5">
-                <input
-                  onChange={(event) => {
-                    handleCheckboxChange(event, notice._id);
-                  }}
-                  type="checkbox"
-                  className="peer hidden"
-                />
-                <div className="w-6 h-6 border-2 border-gray-400 rounded-md flex items-center justify-center peer-checked:border-red-500 peer-checked:bg-red-500 transition">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-4 w-4 text-white opacity-0 peer-checked:opacity-100 transition"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                  >
-                    <path d="M9 11l3 3L22 4l-2-2-9 9-3-3-2 2z" />
-                  </svg>
-                </div>
-              </label>
+            <div className="flex flex-col-reverse md:flex-row items-center justify-center cursor-pointer">
+              <div className="flex flex-col-reverse md:flex-row items-center justify-center">
+                {/* Mark Items */}
+                <label className="relative flex items-center cursor-pointer md:mr-5 my-3 md:mb-0">
+                  <input
+                    type="checkbox"
+                    onChange={(event) =>
+                      handleCheckboxChange(event, notice._id)
+                    }
+                    className="peer hidden"
+                  />
 
-              {/* Image with Click Event */}
-              <div>
-                <div
-                  className="relative group transition w-40"
-                  onClick={() => setSelectedImagePDF(notice.fileUrl)}
-                >
-                  {notice.fileUrl?.endsWith(".pdf") ? (
-                    <div className="h-40 w-40 flex items-center justify-center border border-gray-300 rounded-md bg-gray-100 cursor-pointer hover:shadow transition">
-                      <p className="text-center text-blue-600 font-semibold">
-                        Click to View PDF
-                      </p>
-                    </div>
-                  ) : (
-                    <img
-                      src={notice.fileUrl}
-                      alt={notice.title}
-                      className="h-40 w-40 object-cover rounded-md cursor-pointer"
-                    />
-                  )}
-
-                  {/* Hover Overlay with Icon - Now only on Image */}
-                  <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-md">
-                    <Eye className="text-white w-8 h-8" />
+                  <div className="w-6 h-6 border-2 border-gray-400 rounded-md flex items-center justify-center transition peer-checked:border-red-500">
+                    {/* only for mark background */}
                   </div>
-                </div>
 
-                <p className="text-base font-semibold text-gray-500 mt-2.5">
-                  Added on: {new Date(notice.createdAt).toLocaleDateString()}
-                </p>
-                <p className="text-base font-semibold text-gray-500">
-                  Updated on: {new Date(notice.updatedAt).toLocaleDateString()}
-                </p>
+                  {/* Tick icon*/}
+                  <img
+                    src="/tick-svg.svg"
+                    alt="checked"
+                    className="w-3 h-3 absolute left-1.5 top-1.5 opacity-0 peer-checked:opacity-100 transition-opacity duration-200 pointer-events-none"
+                  />
+                </label>
+
+                {/* Image with Click Event */}
+                <div className="flex flex-col items-center md:items-start justify-center">
+                  <div
+                    className="relative group transition w-40"
+                    onClick={() => setSelectedImagePDF(notice.fileUrl)}
+                  >
+                    {notice.fileUrl?.endsWith(".pdf") ? (
+                      <div className="h-40 w-40 flex items-center justify-center border border-gray-300 rounded-md bg-gray-100 cursor-pointer hover:shadow transition">
+                        <p className="text-center text-blue-600 font-semibold">
+                          Click to View PDF
+                        </p>
+                      </div>
+                    ) : (
+                      <img
+                        src={notice.fileUrl}
+                        alt={notice.title}
+                        className="h-40 w-40 object-cover rounded-md cursor-pointer"
+                      />
+                    )}
+
+                    {/* Hover Overlay with Icon - Now only on Image */}
+                    <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-md">
+                      <Eye className="text-white w-8 h-8" />
+                    </div>
+                  </div>
+
+                  <p className="text-base font-semibold text-gray-500 mt-2.5">
+                    Added on: {new Date(notice.createdAt).toLocaleDateString()}
+                  </p>
+                  <p className="text-base font-semibold text-gray-500">
+                    Updated on:{" "}
+                    {new Date(notice.updatedAt).toLocaleDateString()}
+                  </p>
+                </div>
               </div>
 
               {/* Notice Text and Headline Btn */}
-              <div className="ml-4">
-                <h2 className="text-3xl font-semibold text-left justify-start text-gray-700 mb-3 cursor-pointer">
+              <div className="md:ml-4 flex flex-col items-center md:items-start justify-center">
+                <h2 className="text-3xl text-center font-semibold md:text-left justify-start text-gray-700 mb-3 cursor-pointer">
                   {notice.title}
                 </h2>
-                <p className="text-gray-700 text-left text-xl cursor-pointer mb-10">
+                <p className="hidden md:block text-gray-700 text-left text-xl cursor-pointer mb-10">
                   {notice.description}
                 </p>
                 <button
@@ -510,7 +502,7 @@ export default function NoticeControl() {
                     e.stopPropagation();
                     handleAddUpdateHeadline(notice.title);
                   }}
-                  className="bg-blue-500 text-white rounded-lg hover:bg-blue-600 px-5 py-2 transition hover:scale-105 cursor-pointer"
+                  className="bg-blue-500 text-white rounded-lg hover:bg-blue-600 px-5 py-2 transition hover:scale-105 cursor-pointer mb-3 md:mb-0"
                 >
                   Make it Headline
                 </button>
@@ -524,7 +516,7 @@ export default function NoticeControl() {
                 setDeleteID(notice._id);
                 setDeleteNotice(true);
               }}
-              className="bg-red-500 text-white font-semibold px-5 py-3 rounded-[8px] hover:bg-red-600 hover:scale-105 cursor-pointer ml-2.5"
+              className="bg-red-500 text-white font-semibold px-5 py-2 rounded-[8px] hover:bg-red-600 hover:scale-105 cursor-pointer ml-2.5"
             >
               Delete
             </button>
@@ -610,7 +602,7 @@ export default function NoticeControl() {
           <div className="relative">
             {/* Close Button */}
             <button
-              className="absolute top-0 -right-2 bg-red-600 text-white px-3 py-1 rounded-[4px] text-xl cursor-pointer"
+              className="absolute top-0 -right-2 bg-red-600 text-white px-2 py-1 rounded-[4px] text-base md:text-xl cursor-pointer"
               onClick={() => setSelectedImagePDF(false)}
             >
               ✕
@@ -626,7 +618,7 @@ export default function NoticeControl() {
               <img
                 src={selectedImagePDF}
                 alt="Selected"
-                className="max-w-full max-h-[90vh] rounded-lg shadow-lg"
+                className="max-w-[340px] md:max-w-full max-h-[90vh] rounded-lg shadow-lg"
               />
             )}
           </div>

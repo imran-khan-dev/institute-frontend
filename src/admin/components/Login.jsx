@@ -5,6 +5,7 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -14,6 +15,7 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     setError("");
 
     try {
@@ -34,13 +36,15 @@ export default function Login() {
       navigate("/dashboard");
     } catch (err) {
       setError(err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-        <h2 className="text-2xl font-bold mb-6 text-center">Admin Login</h2>
+        <h2 className="text-2xl font-bold mb-6 text-center">অ্যাডমিন লগিন</h2>
         {error && (
           <div className="bg-red-100 text-red-700 p-3 rounded mb-4 text-center">
             {error}
@@ -48,34 +52,36 @@ export default function Login() {
         )}
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block mb-1 font-medium text-gray-700">
-              Email
+            <label className="block mb-1 font-semibold text-gray-700">
+              ইমেইল
             </label>
             <input
               type="email"
               className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              placeholder="এখানে ইমেইল লিখুন"
               required
             />
           </div>
           <div>
-            <label className="block mb-1 font-medium text-gray-700">
-              Password
+            <label className="block mb-1 font-semibold text-gray-700">
+              পাসওয়ার্ড
             </label>
             <input
               type="password"
               className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              placeholder="এখানে পাসওয়ার্ড লিখুন"
               required
             />
           </div>
           <button
             type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded cursor-pointer"
+            className="w-full bg-green-700 hover:bg-green-600 text-white font-bold py-2 rounded cursor-pointer"
           >
-            Login
+            {loading ? "লগিং হচ্ছে" : "লগিন করুন"}
           </button>
         </form>
       </div>
