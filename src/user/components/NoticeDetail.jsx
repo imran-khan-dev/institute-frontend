@@ -38,6 +38,16 @@ const NoticeDetail = ({ apiBaseUrl }) => {
             {notice.title}
           </h1>
           <p className="text-gray-700 text-lg">{notice.description}</p>
+          {notice.fileUrl && (
+            <a
+              href={notice.fileUrl}
+              download
+              className="inline-block font-semibold mt-6 px-5 py-2 bg-[#057957] text-white rounded hover:bg-green-600 transition"
+            >
+              ডাউনলোড নোটিশ
+            </a>
+          )}
+
           {notice.fileUrl?.endsWith(".pdf") ? (
             <iframe
               src={notice.fileUrl}

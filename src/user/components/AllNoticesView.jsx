@@ -1,6 +1,6 @@
+import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
 
 export default function AllNoticesView({ apiBaseUrl }) {
   const [notices, setNotices] = useState([]);
@@ -67,8 +67,11 @@ export default function AllNoticesView({ apiBaseUrl }) {
                     {notice.title}
                   </h2>
                   <p className="text-gray-700 text-xl mb-4">
-                    {notice.description}
+                    {notice.description.length > 100
+                      ? `${notice.description.slice(0, 100)}...`
+                      : notice.description}
                   </p>
+
                   <Link
                     to={`/notice/${notice._id}`}
                     className="bg-green-700 text-white font-semibold px-5 py-3 rounded hover:bg-green-600 hover:scale-105 transition w-max"
