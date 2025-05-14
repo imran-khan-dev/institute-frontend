@@ -95,7 +95,7 @@ const Slider = ({ apiBaseUrl }) => {
       </div>
 
       {/* Navigation buttons */}
-      <div className="absolute bottom-2 right-4 flex space-x-3 md:space-x-6 p-2">
+      <div className="absolute bottom-2 right-2 md:right-4 flex space-x-3 mb-9 md:mb-0 md:space-x-6 p-2">
         <button
           onClick={handlePrevSlide}
           className="w-7 h-7 text-white bg-green-500/50 hover:bg-green-400/70 cursor-pointer flex items-center justify-center transition"
