@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
-import { useState, useEffect, useRef } from "react";
 import { Eye } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -301,9 +301,9 @@ export default function NoticeControl() {
   };
 
   return (
-    <div className="p-6 mx-auto space-y-8">
+    <div className="p-3 md:p-6 mx-auto space-y-8">
       {/* Notice Add and Update */}
-      <div className="flex flex-col md:flex-row items-center justify-center md:space-x-10 space-y-10 md:space-y-0 mb-20 px-4">
+      <div className="flex flex-col md:flex-row items-center justify-center md:space-x-10 space-y-10 md:space-y-0 mb-20 md:px-4">
         {/* Add New Notice */}
         <div className="w-full md:w-1/2">
           <div className="bg-white p-6 rounded-lg shadow-lg">
@@ -392,7 +392,7 @@ export default function NoticeControl() {
       </div>
 
       {/* Instructions */}
-      <div className="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-900 p-4 rounded-lg shadow-md mb-4">
+      <div className="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-900 p-4 rounded-lg shadow-md mb-10 md:mb-20">
         <h2 className="text-lg font-bold mb-2">Instructions:</h2>
         <ul className="list-disc list-inside space-y-1">
           <li>File size limit upto 5 MB.</li>

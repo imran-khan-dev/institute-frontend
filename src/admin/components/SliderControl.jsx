@@ -188,9 +188,9 @@ export default function SliderControl() {
   };
 
   return (
-    <div className="p-6 max-w-4xl mx-auto space-y-8">
+    <div className="p-3 md:p-6 max-w-4xl mx-auto space-y-8">
       {/* Instructions */}
-      <div className="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-900 p-4 rounded-lg shadow-md mb-4">
+      <div className="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-900 p-4 rounded-lg shadow-md mb-10">
         <h2 className="text-lg font-bold mb-2">Instructions:</h2>
         <ul className="list-disc list-inside space-y-1">
           <li>Max 3 slides are allowed.</li>

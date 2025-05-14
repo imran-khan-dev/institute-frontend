@@ -252,7 +252,7 @@ function GoverningBodyControl() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto p-8 bg-gray-100 text-gray-900 shadow-xl rounded-3xl">
+    <div className="max-w-6xl mx-auto p-3 md:p-6 bg-gray-100 text-gray-900 shadow-xl rounded-3xl">
       {/* Loading Message */}
 
       {loading.loading && (
@@ -289,7 +289,7 @@ function GoverningBodyControl() {
       )}
 
       {/* Members Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-5 gap-6 mb-10">
+      <div className="grid grid-cols-1 md:grid-cols-5 gap-6 mb-10 p-3 md:p-0">
         {members.map((member) => (
           <div
             key={member._id}
@@ -344,7 +344,7 @@ function GoverningBodyControl() {
         </ul>
       </div>
 
-      <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-10 mb-7 px-4">
+      <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-10 mb-5 md:mb-7 px-2 md:px-4">
         {/* Add New Member Section */}
         <div className="w-full md:w-1/2 mt-10 p-6 bg-white rounded-lg shadow-md">
           <h2 className="text-xl font-semibold text-center mb-5">
@@ -385,7 +385,7 @@ function GoverningBodyControl() {
 
         {/* Update Member Section */}
         {selectedMember && (
-          <div className="w-full md:w-1/2 mt-10 p-6 bg-white rounded-lg shadow-md">
+          <div className="w-full md:w-1/2 md:mt-10 p-6 bg-white rounded-lg shadow-md">
             <h3 className="text-xl font-semibold text-center mb-5">
               Update Member
             </h3>

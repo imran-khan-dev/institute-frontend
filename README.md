@@ -1,4 +1,4 @@
-# 🏫 Smart Institute Website – MERN Stack
+# 🏫 Scalable & Dynamic Institute Website – MERN Stack
 
 This is my first MERN project, built with the intention to **learn full-stack development**, **solve a real-world problem**, and create something that could offer **business value** in the future.
 

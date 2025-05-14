@@ -61,7 +61,7 @@ export default function AboutSchool() {
   return (
     <div>
       {/* Instructions */}
-      <div className="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-900 p-4 rounded-lg shadow-md mb-4">
+      <div className="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-900 p-4 rounded-lg shadow-md mb-10">
         <h2 className="text-lg font-bold mb-2">Instructions:</h2>
         <ul className="list-disc list-inside space-y-1">
           <li>
@@ -72,7 +72,7 @@ export default function AboutSchool() {
       </div>
 
       {/* Add About */}
-      <div className="flex items-center justify-center space-x-10 mb-20">
+      <div className="flex items-center justify-center space-x-10">
         {/* About form */}
         <div className="grid grid-cols-1 gap-6 ">
           <div className="bg-white p-6 rounded-lg shadow-lg">

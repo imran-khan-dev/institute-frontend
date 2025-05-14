@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FaTrash } from "react-icons/fa";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
@@ -223,10 +223,10 @@ export default function MediaGalleryControl() {
   };
 
   return (
-    <div className="p-6 mx-auto space-y-8">
+    <div className="p-3 md:p-6 mx-auto space-y-8">
       {/* Image Add to Gallery and Update */}
-      <div className="flex items-center justify-center space-x-10 mb-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-20 ">
+      <div className="flex items-center justify-center space-x-10 mb-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20">
           {/* Add a New Image */}
           <div className="bg-white p-6 rounded-lg shadow-lg">
             <h2 className="text-2xl font-semibold text-gray-700 mb-3">
@@ -241,14 +241,14 @@ export default function MediaGalleryControl() {
                   accept="image/*"
                   onChange={handlePhotoFile}
                   ref={addImageInputRef}
-                  className="text-center"
+                  className="text-center text-xs md:text-base"
                 />
               </label>
 
               <button
                 type="submit"
                 disabled={loading}
-                className="bg-blue-500 text-white rounded-lg hover:bg-blue-600 px-5 py-3 disabled:bg-gray-400 transition hover:scale-105 cursor-pointer"
+                className="bg-blue-500 text-white rounded-lg hover:bg-blue-600  px-3 py-2 md:px-5 md:py-3 disabled:bg-gray-400 transition hover:scale-105 cursor-pointer"
               >
                 {loading ? "Adding..." : "Submit"}
               </button>
@@ -281,7 +281,7 @@ export default function MediaGalleryControl() {
                 <button
                   type="submit"
                   disabled={loading || !selectedImage}
-                  className="bg-blue-500 text-white rounded-lg hover:bg-blue-600 px-5 py-3 disabled:bg-gray-400 transition hover:scale-105 cursor-pointer"
+                  className="bg-blue-500 text-white rounded-lg hover:bg-blue-600 px-3 py-2 md:px-5 md:py-3 disabled:bg-gray-400 transition hover:scale-105 cursor-pointer"
                 >
                   {updating ? "Updating..." : "Update Details"}
                 </button>
@@ -292,7 +292,7 @@ export default function MediaGalleryControl() {
       </div>
 
       {/* Photo gallery */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
         {images.map((image) => (
           <div
             key={image._id}
@@ -392,7 +392,7 @@ export default function MediaGalleryControl() {
         <button
           onClick={handlePrevPage}
           disabled={page === 1}
-          className="bg-blue-500 text-white rounded-lg px-5 py-3 disabled:bg-gray-400 transition hover:scale-105 cursor-pointer"
+          className="bg-blue-500 text-white rounded-lg px-3 py-2 md:px-5 md:py-3 disabled:bg-gray-400 transition hover:scale-105 cursor-pointer"
         >
           Previous
         </button>
@@ -402,7 +402,7 @@ export default function MediaGalleryControl() {
         <button
           onClick={handleNextPage}
           disabled={page === totalPages}
-          className="bg-blue-500 text-white rounded-lg px-5 py-3 disabled:bg-gray-400 transition hover:scale-105 cursor-pointer"
+          className="bg-blue-500 text-white rounded-lg px-3 py-2 md:px-5 md:py-3 disabled:bg-gray-400 transition hover:scale-105 cursor-pointer"
         >
           Next
         </button>
