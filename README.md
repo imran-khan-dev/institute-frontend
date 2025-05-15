@@ -65,7 +65,15 @@ Everything shown on the **homepage** is **fully dynamic** and controlled from th
 
 ## 📸 Screenshots
 
-> _(Add screenshots here if possible: homepage, admin panel, mobile views, etc.)_
+![Screenshot 1](./public/Institute-admin.png)
+![Screenshot 1](./public/Institute-admin2.png)
+![Screenshot 1](./public/Institute-admin3.png)
+![Screenshot 1](./public/Institute-website.png)
+![Screenshot 1](./public/Screenshot_20250514-230930.png)
+![Screenshot 1](./public/Screenshot_20250514-231006.png)
+![Screenshot 1](./public/Screenshot_20250514-231013.png)
+![Screenshot 1](./public/Screenshot_20250515-151648.png)
+![Screenshot 1](./public/Screenshot_20250515-151718.png)
 
 ---
 
