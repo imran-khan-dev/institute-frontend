@@ -6,11 +6,33 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
   useEffect(() => {
     document.title = "Admin Login";
+  }, []);
+
+  const isLoggedIn = () => {
+    const token = localStorage.getItem("token");
+    const user = localStorage.getItem("user");
+
+    if (!token || !user) return false;
+
+    try {
+      const parsedUser = JSON.parse(user);
+      return !!(parsedUser && parsedUser._id && parsedUser.email);
+    } catch (e) {
+      console.error("Invalid user JSON:", e);
+      return false;
+    }
+  };
+
+  useEffect(() => {
+    if (isLoggedIn()) {
+      navigate("/dashboard");
+    }
   }, []);
 
   const handleSubmit = async (e) => {
@@ -33,6 +55,9 @@ export default function Login() {
       const data = await response.json();
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify(data.user));
+      console.log(localStorage.getItem("token"));
+      console.log(localStorage.getItem("user"));
+
       navigate("/dashboard");
     } catch (err) {
       setError(err.message);
@@ -79,9 +104,10 @@ export default function Login() {
           </div>
           <button
             type="submit"
+            disabled={loading}
             className="w-full bg-green-700 hover:bg-green-600 text-white font-bold py-2 rounded cursor-pointer"
           >
-            {loading ? "লগিং হচ্ছে" : "লগিন করুন"}
+            {loading ? "লগিং হচ্ছে..." : "লগিন করুন"}
           </button>
         </form>
       </div>
