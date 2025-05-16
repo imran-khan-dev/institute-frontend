@@ -6,6 +6,7 @@ import Login from "./admin/components/Login";
 import AllNoticesViewPage from "./user/page/AllNoticesViewPage";
 import ScrollToTop from "./user/components/ScrollToTop";
 import NoticeDetailViewPage from "./user/page/NoticeDetailsViewPage";
+import NotFound from "./user/components/NotFound";
 
 export default function App() {
   return (
@@ -17,7 +18,7 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/notice/:id" element={<NoticeDetailViewPage />} />
         <Route path="/all-notices-view" element={<AllNoticesViewPage />} />
-
+        <Route path="*" element={<NotFound />} />
         {/* Admin Below */}
         <Route
           path="/dashboard"
