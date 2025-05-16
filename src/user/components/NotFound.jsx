@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import Header from "./Header";
 import Footer from "./Footer";
+import Header from "./Header";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -9,7 +9,7 @@ export default function NotFound() {
     <>
       <Header apiBaseUrl={API_BASE_URL} />
       <div className="text-center mt-20">
-        <h1 className="text-4xl font-bold">৪০৪ - নট ফাউন্ড</h1>
+        <h1 className="text-4xl font-bold">404 - নট ফাউন্ড</h1>
         <p className="my-4">
           আপনার কাঙ্ক্ষিত পেজটি ওয়েবসাইটে খুঁজে পাওয়া যায়নি
         </p>
